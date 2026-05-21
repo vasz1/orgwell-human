@@ -1,0 +1,8 @@
+{
+  "name": "1.márjóverzió",
+  "description": "Prémium coaching szolgáltatás vezetőknek és magánszemélyeknek. Neo Organic Frosted Glass design.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
