@@ -13,11 +13,10 @@ export default function About() {
             <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 w-48 h-48 bg-white/40 rounded-full blur-2xl"></div>
 
             {/* Kép beillesztése */}
-            {/* Ide tudod majd feltölteni a saját végleges fotód (public/profile.png) */}
             <img 
-              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop" 
+              src="/profile.jpg" 
               alt="Takács Diána" 
-              className="w-full h-full object-cover relative z-10 opacity-90 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
+              className="w-full h-full object-cover object-top relative z-10 opacity-90 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
             />
             
             <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-white/70 backdrop-blur-md px-6 py-2 rounded-full border border-white/50 whitespace-nowrap z-20">
