@@ -9,9 +9,9 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     id: '1',
-    role: 'Középvezető',
-    stat: 'Céltudatosság',
-    quote: 'A coaching során megtaláltam azt a fókuszt, ami évek óta hiányzott.'
+    role: 'Zoli',
+    stat: 'Iránymutatás',
+    quote: 'A coaching a kérdezés- és az odafigyelés keverékének művészete: nem tanácsot kap az ember, nem megmondják mit kellene ebben a helyzetben tenni, inkább a jól irányított kérdésekkel a coach rávezet a megoldásra. Diána ennek mestere - csak kérdez és kérdez, de nem tanácsol. Pont, ahogy egy coachnak kell.'
   },
   {
     id: '2',

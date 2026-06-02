@@ -35,7 +35,7 @@ export default function About() {
           
           <div className="space-y-4 text-[#5C5C5C] leading-relaxed mb-8">
             <p>
-              Szia. Takács Diána vagyok. Végzettségemet tekintve közgazdász, könyvelő és akkreditált life & business coach. Hivatásomat tekintve pedig segítő szakember. 
+              Szia. Takács Diána vagyok. Végzettségemet tekintve közgazdász, könyvelő és life & business coach. Hivatásomat tekintve pedig segítő szakember. 
             </p>
             <p>
               Küldetésem, hogy segítsek a hozzám fordulóknak megtalálni a saját belső hangjukat, segítsek újra kapcsolódni önmagukhoz, és kihozni magukból a maximumot, mind a magánéletben, mind a hivatásukban.
