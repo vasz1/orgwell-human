@@ -78,7 +78,14 @@ export default function Contact() {
         });
       } else {
         setStatus("error");
-        setErrorMessage(data.message || "Hiba történt a küldés során. Kérlek próbáld újra!");
+        if (data.message && data.message.includes("Invalid Form ID")) {
+          setErrorMessage(
+            "Érvénytelen Web3Forms elérési kulcs (Access Key)! " +
+            "Az üzenőfal működéséhez kérlek hozz létre egy ingyenes kulcsot a https://web3forms.com oldalon a takacs.diana@orgwell.hu e-mail címeddel, majd az AI Studio-ban a bal alsó sarokban lévő Settings (Fogaskerék) -> Secrets / Environment Variables menüpontban add hozzá a VITE_WEB3FORMS_ACCESS_KEY nevű változót a megkapott kulccsal!"
+          );
+        } else {
+          setErrorMessage(data.message || "Hiba történt a küldés során. Kérlek próbáld újra!");
+        }
       }
     } catch (error) {
       setStatus("error");
