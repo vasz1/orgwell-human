@@ -15,14 +15,14 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: '2',
-    role: 'Vállalkozó',
+    role: 'Tibor',
     stat: 'Hatékonyság',
     quote: 'Segített más perspektívából rátekinteni a kihívásaimra, így könnyebben hozok meg nehéz döntéseket.'
   },
   {
     id: '3',
-    role: 'Magánszemély',
+    role: 'Kata',
     stat: 'Belső béke',
-    quote: 'Dióval a munka rávilágított arra, hogy az önmagamra szánt idő nem önzőség, hanem az egyensúly alapja.'
+    quote: 'Diával a munka rávilágított arra, hogy az önmagamra szánt idő nem önzőség, hanem az egyensúly alapja.'
   }
 ];
