@@ -6,7 +6,7 @@ export default function About() {
     <div className="flex-1 w-full flex flex-col z-10">
       <main className="flex flex-col md:flex-row px-6 md:px-16 items-center py-12 md:py-16 w-full max-w-7xl mx-auto gap-12 md:gap-20">
         <div className="w-full md:w-1/2 relative flex justify-center items-center order-2 md:order-1">
-          <div className="w-72 h-[420px] md:w-80 md:h-[480px] rounded-t-[160px] rounded-b-[40px] bg-[#E8DCCB] relative overflow-hidden shadow-xl border border-white flex flex-col justify-end">
+          <div className="w-72 h-[420px] md:w-80 md:h-[480px] rounded-t-[160px] rounded-b-[40px] bg-[#E8DCCB] relative overflow-hidden shadow-xl hover:shadow-2xl border border-white flex flex-col justify-end transition-shadow duration-700 group">
             
             {/* Háttér dekoráció a kép mögött */}
             <div className="absolute top-0 w-full h-full bg-gradient-to-b from-[#E8DCCB]/50 to-[#D9C5B2] mix-blend-multiply"></div>
@@ -16,10 +16,10 @@ export default function About() {
             <img 
               src="/profile.jpg" 
               alt="Takács Diána" 
-              className="w-full h-full object-cover object-top relative z-10 opacity-90 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
+              className="w-full h-full object-cover object-top relative z-10 group-hover:scale-[1.03] transition-transform duration-700 ease-out"
             />
             
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-white/70 backdrop-blur-md px-6 py-2 rounded-full border border-white/50 whitespace-nowrap z-20">
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-md px-6 py-2 rounded-full border border-white/60 whitespace-nowrap z-20">
               <p className="text-xs font-bold uppercase tracking-widest text-[#5A634F]">Takács Diána</p>
             </div>
           </div>
@@ -35,7 +35,7 @@ export default function About() {
           
           <div className="space-y-4 text-[#5C5C5C] leading-relaxed mb-8">
             <p>
-              Szia. Takács Diána vagyok. Végzettségemet tekintve közgazdász, könyvelő és life & business coach. Hivatásomat tekintve pedig segítő szakember. 
+              Szia. Takács Diána vagyok. Végzettségemet tekintve közgazdász, könyvelő, life & business, valamint gyermek, kamasz és ifjúsági coach. Hivatásomat tekintve pedig segítő szakember.
             </p>
             <p>
               Küldetésem, hogy segítsek a hozzám fordulóknak megtalálni a saját belső hangjukat, segítsek újra kapcsolódni önmagukhoz, és kihozni magukból a maximumot, mind a magánéletben, mind a hivatásukban.
@@ -44,13 +44,13 @@ export default function About() {
               Hiszek abban, hogy a tartós változás kulcsa az önismeret és a tudatos döntéshozatal. Munkám során diszkrét, támogató közegben kísérem végig az ügyfeleimet a saját útjukon.
             </p>
             <p>
-              Módszerem alapja az empátia, a jelenlét és a strukturált kérdezés technika. Nem tanácsokat adok, hanem tükröt tartok, amiben megláthatod a saját megoldásaidat.
+              Módszerem alapja az empátia, a jelenlét és a strukturált kérdezéstechnika. Nem tanácsokat adok, hanem tükröt tartok, amiben megláthatod a saját megoldásaidat.
             </p>
             <p>
               Ebben a térben mindenki megkapja a lehetőséget, hogy ítélkezésmentesen őszinte lehessen önmagával.
             </p>
             <p className="font-bold text-[#2D2926]">
-              A változás nem küzdelem, hanem egy folyamat, amiben biztonságban vagy.
+              "Te magad légy a változás, amit látni szeretnél a világban!" <span className="font-normal italic text-[#5C5C5C]">(Mahatma Gandhi)</span>
             </p>
           </div>
 

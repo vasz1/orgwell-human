@@ -1,9 +1,41 @@
-import { Target, Heart, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
+import { Target, Heart, CheckCircle2, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Methodology() {
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      question: "Hogyan indul a közös munka, és mennyibe kerül az első alkalom?",
+      answer:
+        "Az első lépés egy díjmentes, nagyjából 30 perces online vagy személyes ismerkedő beszélgetés, amely semmilyen kötelezettséggel nem jár. Itt megismerjük egymást, átbeszéljük, miben szeretnél előrelépni, és a közös munka kereteit (gyakoriság, díjazás) is ekkor egyeztetjük személyre szabottan."
+    },
+    {
+      question: "Gyermek- és kamasz coachingnál a szülő is bent van az üléseken?",
+      answer:
+        "Az első ismerkedő egyeztetésen a szülővel közösen beszéljük át a helyzetet és a célokat. Maguk az ülések viszont biztonságos, bizalmi térben, négyszemközt zajlanak a gyermekkel vagy fiatallal, hogy egy független, elfogadó közegben szabadon és a saját tempójában tudjon megnyílni. A szülőkkel előre egyeztetett keretek között tudok visszajelző egyeztetést tartani, amennyiben az szükséges."
+    },
+    {
+      question: "Miben más a coaching, mint a pszichológus?",
+      answer:
+        "A coaching nem terápia és nem múltbeli sérülések vagy mentális betegségek gyógyítására szolgál, hanem a jelenre és a jövőre fókuszál. Strukturált kérdésekkel, gyakorlatokkal és támogató jelenléttel segít tisztábban látni, megtalálni a saját erőforrásokat és konkrét, megvalósítható lépéseket tenni."
+    },
+    {
+      question: "Személyesen vagy online érdemes találkozni?",
+      answer:
+        "Mindkét forma ugyanolyan hatékony. Veszprémben nyugodt, diszkrét környezetben tudunk személyesen találkozni, míg online (Google Meet) formában bárhonnan kényelmesen, utazás nélkül csatlakozhatsz."
+    },
+    {
+      question: "Hány alkalomra van szükség általában?",
+      answer:
+        "Minden folyamat egyedi, hiszen mindenki a saját tempójában halad. Bár sokszor már 1–2 alkalom is hozhat új nézőpontokat és megkönnyebbülést, a tartósabb változáshoz gyermekeknél és kamaszoknál jellemzően minimum 3, felnőtteknél pedig minimum 5 alkalmas folyamatra érdemes számítani."
+    }
+  ];
+
   return (
-    <main className="flex-1 flex flex-col md:flex-row px-6 md:px-16 items-center z-10 py-12 md:py-16 w-full max-w-7xl mx-auto gap-12 md:gap-20">
+    <div className="flex-1 w-full flex flex-col z-10">
+      <main className="flex flex-col md:flex-row px-6 md:px-16 items-center py-12 md:py-16 w-full max-w-7xl mx-auto gap-12 md:gap-20">
       <div className="w-full md:w-1/2 flex flex-col items-center text-center md:items-start md:text-left">
         <div className="mb-4 inline-block px-4 py-1.5 bg-white/50 backdrop-blur-sm border border-[#94A383]/20 rounded-full shadow-sm">
           <span className="text-[#94A383] text-xs font-bold uppercase tracking-widest">Hogyan dolgozunk?</span>
@@ -62,12 +94,58 @@ export default function Methodology() {
            <div className="w-[260px] md:w-[320px] p-8 bg-white/40 backdrop-blur-2xl border border-white/60 rounded-[40px] shadow-lg text-center z-10">
               <h4 className="font-serif text-2xl mb-4 text-[#2D2926]">Készen állsz a változásra?</h4>
               <p className="text-sm text-[#5C5C5C] mb-8 leading-relaxed">Az első lépés mindig egy ingyenes, 30 perces ismerkedő beszélgetés, ahol megnézzük, tudunk-e együtt dolgozni.</p>
-              <Link to="/kapcsolat" className="inline-block px-8 py-3 bg-[#94A383] text-white rounded-full text-sm font-semibold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
+              <Link to="/kapcsolat?tema=ismerkedo" className="inline-block px-8 py-3 bg-[#94A383] text-white rounded-full text-sm font-semibold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
                 Időpontot foglalok
               </Link>
            </div>
         </div>
       </div>
-    </main>
+      </main>
+
+      {/* Gyakori kérdések (GYIK) */}
+      <section className="px-6 md:px-16 py-12 md:py-16 w-full max-w-7xl mx-auto">
+        <div className="text-center md:text-left mb-10">
+          <div className="mb-4 inline-block px-4 py-1.5 bg-white/50 backdrop-blur-sm border border-[#94A383]/20 rounded-full shadow-sm">
+            <span className="text-[#94A383] text-xs font-bold uppercase tracking-widest">Hasznos tudnivalók</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-serif italic text-[#2D2926]">
+            Gyakori <span className="not-italic font-bold text-[#5A634F]">kérdések</span>
+          </h2>
+        </div>
+
+        <div className="space-y-4">
+          {faqs.map((faq, idx) => {
+            const isOpen = openFaqIndex === idx;
+            return (
+              <div
+                key={idx}
+                className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-[28px] shadow-sm overflow-hidden transition-all"
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                  aria-expanded={isOpen}
+                  className="w-full px-6 md:px-8 py-5 flex items-center justify-between gap-4 text-left hover:bg-white/40 transition-colors cursor-pointer"
+                >
+                  <span className="font-serif text-lg md:text-xl text-[#2D2926]">
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-[#94A383] shrink-0 transition-transform duration-300 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {isOpen && (
+                  <div className="px-6 md:px-8 pb-6 text-sm md:text-base text-[#5C5C5C] leading-relaxed">
+                    {faq.answer}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    </div>
   );
 }

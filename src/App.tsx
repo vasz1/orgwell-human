@@ -10,6 +10,8 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Methodology from "./pages/Methodology";
 import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
           <Route path="szolgaltatasok" element={<Services />} />
           <Route path="modszertan" element={<Methodology />} />
           <Route path="kapcsolat" element={<Contact />} />
+          <Route path="adatkezeles" element={<Privacy />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

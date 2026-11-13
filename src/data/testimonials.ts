@@ -15,9 +15,9 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: '2',
-    role: 'Tibor',
-    stat: 'Hatékonyság',
-    quote: 'Segített más perspektívából rátekinteni a kihívásaimra, így könnyebben hozok meg nehéz döntéseket.'
+    role: 'Eszter',
+    stat: 'Előrelépés',
+    quote: 'Nekem nagyon sokat segítettek ezek az ülések. Azzal, hogy Dia jókat kérdezett és jó feladatokat adott nekem, azzal tudtam előre menni, és így tudtak bennem megszületni azok a gondolatok és érzések, amik a lelkem mélyén szunnyadtak.'
   },
   {
     id: '3',

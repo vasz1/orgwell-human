@@ -1,23 +1,36 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 
 export default function Contact() {
+  const [searchParams] = useSearchParams();
+  const initialTopic = searchParams.get("tema") || "";
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
+    subject: initialTopic,
     message: ""
   });
   
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
   const subjectLabels: Record<string, string> = {
     eletvezetes: "Life coaching",
     executive: "Executive Coaching",
+    ifjusagi: "Gyermek, kamasz és ifjúsági coaching",
     ismerkedo: "Ingyenes ismerkedő beszélgetés",
     egyeb: "Egyéb"
   };
+
+  useEffect(() => {
+    const tema = searchParams.get("tema");
+    if (tema && tema in subjectLabels) {
+      setFormData((prev) => ({ ...prev, subject: tema }));
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (status === "success") {
@@ -42,10 +55,17 @@ export default function Contact() {
       return;
     }
 
+    if (!acceptedPrivacy) {
+      setErrorMessage("Az üzenet elküldéséhez kérlek fogadd el az Adatkezelési tájékoztatót!");
+      setStatus("error");
+      return;
+    }
+
     setStatus("submitting");
     setErrorMessage("");
 
-    const accessKey = (import.meta as any).env.VITE_WEB3FORMS_ACCESS_KEY || "e732fffc-ded2-4f32-8418-d79045eeeed3";
+    const rawEnvKey = ((import.meta as any).env.VITE_WEB3FORMS_ACCESS_KEY || "").trim();
+    const accessKey = rawEnvKey || "e732fffc-ded2-4f32-8418-d79045eeeed3";
 
     const payload = {
       access_key: accessKey,
@@ -70,6 +90,7 @@ export default function Contact() {
 
       if (data.success) {
         setStatus("success");
+        setAcceptedPrivacy(false);
         setFormData({
           name: "",
           email: "",
@@ -80,8 +101,8 @@ export default function Contact() {
         setStatus("error");
         if (data.message && data.message.includes("Invalid Form ID")) {
           setErrorMessage(
-            "Érvénytelen Web3Forms elérési kulcs (Access Key)! " +
-            "Az üzenőfal működéséhez kérlek hozz létre egy ingyenes kulcsot a https://web3forms.com oldalon a takacs.diana@orgwell.hu e-mail címeddel, majd az AI Studio-ban a bal alsó sarokban lévő Settings (Fogaskerék) -> Secrets / Environment Variables menüpontban add hozzá a VITE_WEB3FORMS_ACCESS_KEY nevű változót a megkapott kulccsal!"
+            "Az üzenetküldő szolgáltatás jelenleg nincs megfelelően aktiválva (érvénytelen Web3Forms kulcs). " +
+            "Kérlek írj közvetlenül a takacs.diana@orgwell.hu címre, vagy ha te vagy az oldal tulajdonosa, ellenőrizd a VITE_WEB3FORMS_ACCESS_KEY változót a Vercel / AI Studio beállításaiban!"
           );
         } else {
           setErrorMessage(data.message || "Hiba történt a küldés során. Kérlek próbáld újra!");
@@ -92,9 +113,6 @@ export default function Contact() {
       setErrorMessage("Hálózati hiba történt. Kérlek győződj meg az internetkapcsolatodról, vagy próbáld újra később!");
     }
   };
-
-  const isPlaceholderKey = !(import.meta as any).env.VITE_WEB3FORMS_ACCESS_KEY || 
-    (import.meta as any).env.VITE_WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY";
 
 
   return (
@@ -108,29 +126,35 @@ export default function Contact() {
           Kezdjük el a <span className="not-italic font-bold text-[#5A634F]">közös munkát</span>
         </h1>
         <p className="text-lg text-[#5C5C5C] leading-relaxed mb-10">
-          Kérdésed van, vagy szeretnél jelentkezni egy nulladik, ismerkedő beszélgetésre? Keress bizalommal az alábbi elérhetőségeken, vagy küldj üzenetet közvetlenül.
+          Kérdésed van, vagy szeretnél jelentkezni egy <span className="font-semibold text-[#5A634F]">díjmentes, 30 perces ismerkedő beszélgetésre</span>? Keress bizalommal az alábbi elérhetőségeken, vagy küldj üzenetet közvetlenül.
         </p>
 
         <div className="space-y-8 w-full mb-10 md:mb-0">
-          <div className="flex items-center gap-5 p-4 rounded-3xl bg-white/30 backdrop-blur-sm border border-white/40 hover:bg-white/50 transition-colors">
-            <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm text-[#94A383]">
+          <a
+            href="tel:+36303291095"
+            className="flex items-center gap-5 p-4 rounded-3xl bg-white/30 backdrop-blur-sm border border-white/40 hover:bg-white/60 hover:shadow-sm transition-all group"
+          >
+            <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm text-[#94A383] group-hover:scale-105 transition-transform">
               <Phone className="w-5 h-5" />
             </div>
             <div>
               <p className="text-xs uppercase font-bold tracking-wider text-[#94A383] mb-1">Telefon</p>
-              <p className="text-[#3D3D3D] font-medium">+36 30 329 1095</p>
+              <p className="text-[#3D3D3D] font-medium group-hover:text-[#5A634F] transition-colors">+36 30 329 1095</p>
             </div>
-          </div>
+          </a>
           
-          <div className="flex items-center gap-5 p-4 rounded-3xl bg-white/30 backdrop-blur-sm border border-white/40 hover:bg-white/50 transition-colors">
-            <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm text-[#94A383]">
+          <a
+            href="mailto:takacs.diana@orgwell.hu"
+            className="flex items-center gap-5 p-4 rounded-3xl bg-white/30 backdrop-blur-sm border border-white/40 hover:bg-white/60 hover:shadow-sm transition-all group"
+          >
+            <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm text-[#94A383] group-hover:scale-105 transition-transform">
               <Mail className="w-5 h-5" />
             </div>
             <div>
               <p className="text-xs uppercase font-bold tracking-wider text-[#94A383] mb-1">E-mail</p>
-              <p className="text-[#3D3D3D] font-medium">takacs.diana@orgwell.hu</p>
+              <p className="text-[#3D3D3D] font-medium group-hover:text-[#5A634F] transition-colors">takacs.diana@orgwell.hu</p>
             </div>
-          </div>
+          </a>
 
           <div className="flex items-center gap-5 p-4 rounded-3xl bg-white/30 backdrop-blur-sm border border-white/40 hover:bg-white/50 transition-colors">
             <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm text-[#94A383]">
@@ -211,6 +235,7 @@ export default function Contact() {
                     <option value="">Válassz témát...</option>
                     <option value="eletvezetes">Life coaching</option>
                     <option value="executive">Executive Coaching</option>
+                    <option value="ifjusagi">Gyermek, kamasz és ifjúsági coaching</option>
                     <option value="ismerkedo">Ingyenes ismerkedő beszélgetés</option>
                     <option value="egyeb">Egyéb</option>
                   </select>
@@ -235,6 +260,23 @@ export default function Contact() {
                 />
               </div>
 
+              <label className="flex items-start gap-3 text-xs text-[#5C5C5C] cursor-pointer select-none pt-1">
+                <input
+                  type="checkbox"
+                  checked={acceptedPrivacy}
+                  onChange={(e) => setAcceptedPrivacy(e.target.checked)}
+                  required
+                  className="mt-0.5 h-4 w-4 rounded border-[#D9C5B2] text-[#94A383] focus:ring-[#94A383] accent-[#94A383] cursor-pointer shrink-0"
+                />
+                <span>
+                  Elolvastam és elfogadom az{" "}
+                  <Link to="/adatkezeles" className="text-[#5A634F] font-semibold underline hover:text-[#94A383] transition-colors">
+                    Adatkezelési tájékoztatóban
+                  </Link>{" "}
+                  foglaltakat. *
+                </span>
+              </label>
+
               <button 
                 type="submit" 
                 disabled={status === "submitting"}
@@ -253,12 +295,6 @@ export default function Contact() {
                   "Üzenet elküldése"
                 )}
               </button>
-
-              {isPlaceholderKey && (
-                <p className="text-[10px] text-center text-[#94A383]/60 italic mt-2 select-none">
-                  Megjegyzés fejlesztőknek: Helyezd el a saját Web3Forms kulcsodat a .env-ben (VITE_WEB3FORMS_ACCESS_KEY) az üzenetek fogadásához.
-                </p>
-              )}
             </form>
           )}
         </div>

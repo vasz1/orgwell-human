@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
 export default function Layout() {
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
   
   const navItems = [
     { name: "Kezdőlap", path: "/" },
@@ -63,12 +68,46 @@ export default function Layout() {
             </Link>
           ))}
         </nav>
-        <Link to="/kapcsolat" className="px-6 py-2 border border-[#94A383] rounded-full text-xs font-semibold uppercase text-[#5A634F] hover:bg-[#94A383] hover:text-white transition-all shadow-sm hover:shadow-md">
+        <Link to="/kapcsolat?tema=ismerkedo" className="px-6 py-2 border border-[#94A383] rounded-full text-xs font-semibold uppercase text-[#5A634F] hover:bg-[#94A383] hover:text-white transition-all shadow-sm hover:shadow-md">
           Időpontfoglalás
         </Link>
       </header>
 
       <Outlet />
+
+      {/* Unified Site Footer */}
+      <footer className="w-full border-t border-[#94A383]/15 bg-white/30 backdrop-blur-sm z-10 mt-auto">
+        <div className="max-w-7xl mx-auto px-6 md:px-16 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#5C5C5C]">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+            <span className="font-semibold text-[#5A634F] uppercase tracking-wider">
+              Orgwell-Human · Takács Diána
+            </span>
+            <span className="hidden sm:inline text-[#94A383]/50">|</span>
+            <span>8200 Veszprém &amp; Online (Google Meet)</span>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+            <a
+              href="tel:+36303291095"
+              className="hover:text-[#5A634F] transition-colors"
+            >
+              +36 30 329 1095
+            </a>
+            <a
+              href="mailto:takacs.diana@orgwell.hu"
+              className="hover:text-[#5A634F] transition-colors"
+            >
+              takacs.diana@orgwell.hu
+            </a>
+            <Link
+              to="/adatkezeles"
+              className="underline decoration-[#94A383]/50 underline-offset-4 hover:text-[#5A634F] transition-colors"
+            >
+              Adatkezelési tájékoztató
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
